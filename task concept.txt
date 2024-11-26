@@ -1,0 +1,77 @@
+_________________________________________________Task1_____________________
+steps = input("Enter the number of steps taken each day (separated by spaces): ")
+
+stepslist = list(map(int, steps.split()))
+
+
+highest_steps = max(stepslist)
+lowest_steps = min(stepslist)
+average_steps = sum(stepslist) / len(stepslist)
+sorted_steps = sorted(stepslist, reverse=True)
+
+print(f"Highest step count: {highest_steps}")
+print(f"Lowest step count: {lowest_steps}")
+print(f"Average step count: {average_steps:.2f}")
+print("Steps in descending order:", sorted_steps)
+_________________________________________________Task2_____________________
+borrowed_books_input = input("Enter borrowed books in the format 'Book Title - Days Borrowed', separated by commas:\n")
+
+borrowed_books_list = [entry.strip().rsplit(" - ", 1) for entry in borrowed_books_input.split(",")]
+borrowed_books_list = [(title, int(days)) for title, days in borrowed_books_list]
+
+book_borrowing = {}
+for title, days in borrowed_books_list:
+    book_borrowing[title] = book_borrowing.get(title, 0) + days
+
+
+mostborrowed = max(book_borrowing.items(), key=lambda x: x[1])
+leastborrowed = min(book_borrowing.items(), key=lambda x: x[1])
+
+
+totaldays = sum(book_borrowing.values())
+averagedays = totaldays / len(book_borrowing)
+
+
+uniquetitles = set(book_borrowing.keys())
+
+sorted_books = sorted(book_borrowing.items(), key=lambda x: x[1], reverse=True)
+
+
+print(f"Most borrowed book: {mostborrowed[0]} ({mostborrowed[1]} days)")
+print(f"Least borrowed book: {leastborrowed[0]} ({leastborrowed[1]} days)")
+print(f"Average borrowing duration: {averagedays:.2f} days")
+print("Unique book titles:", uniquetitles)
+print("Books sorted by borrowing duration (descending):")
+for title, days in sorted_books:
+    print(f"  {title}: {days} days")
+
+_________________________________________________Task3_____________________
+
+import random
+
+def scramble_word(word):
+    """Scrambles the letters of the word randomly."""
+    scrambled = list(word)
+    random.shuffle(scrambled)
+    return ''.join(scrambled)
+
+wordlist = ["python", "programming", "challenge", "example"]
+original_word = random.choice(wordlist)  
+scrambled_word = scramble_word(original_word) 
+
+print("Welcome to the Word Game!")
+print(f"Try to guess the original word based on the scrambled version: {scrambled_word}")
+print("You have 5 attempts.")
+
+attempt = 5
+while attempt > 0:
+    guess = input("Enter your guess: ").strip().lower()
+    if guess == original_word:
+        print("Congratulations! You guessed the word correctly.")
+        break
+    else:
+        attempt -= 1
+        if attempt > 0:
+            print(f"Incorrect guess. Attempts left: {attempt}")
+        else:
+            print(f"You're out of attempts! The correct word was: {original_word}")
